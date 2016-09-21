@@ -14,6 +14,10 @@
       "Description": "Use SubnetBPublic or SubnetBPrivate output from vpc stack. If you choose SubnetAPrivate you need a NAT instance or a NAT gateway.",
       "Type": "AWS::EC2::Subnet::Id"
     },
+    "SubnetC": {
+      "Description": "Use SubnetCPublic or SubnetCPrivate output from vpc stack. If you choose SubnetAPrivate you need a NAT instance or a NAT gateway.",
+      "Type": "AWS::EC2::Subnet::Id"    
+    },
     "SSHBastionSecurityGroup": {
       "Description": "Optional use SSHBastionSecurityGroup output from vpc-ssh-bastion stack.",
       "Type": "String",
@@ -37,12 +41,13 @@
       "Default": "internet-facing"
     },
     "MasterELBSubnets": {
-      "Description": "Use SubnetAPublic and SubntBPublic outputs for ELBScheme internet-facing or SubnetAPrivate and SubnetBPrivate outputs for ELBScheme internal from vpc stack.",
+      "Description": "Use SubnetAPublic, SubntBPublic and SubnetCPublic outputs for ELBScheme internet-facing or SubnetAPrivate, SubnetBPrivate and SubnetCPrivate outputs for ELBScheme internal from vpc stack.",
       "Type": "List<AWS::EC2::Subnet::Id>"
     },
     "MasterInstanceType": {
       "Description": "The instance type of the Jenkins master.",
       "Type": "String",
+      "AllowedValues": [t2.micro, t2.medium, m4.large, m4.xlarge, m3.large, m3.xlarge],
       "Default": "t2.micro"
     },
     "MasterAdminPassword": {
@@ -59,7 +64,8 @@
     "AgentInstanceType": {
       "Description": "The instance type of the Jenkins agents.",
       "Type": "String",
-      "Default": "t2.micro"
+      "AllowedValues": [t2.micro, t2.medium, m4.large, m4.xlarge, m3.large, m3.xlarge],
+      "Default": "t2.medium"
     },
     "AgentVolumeSize": {
       "Description": "The volume size, in Gibibytes (GiB). This can be a number from 8 â€“ 1024.",
@@ -72,7 +78,7 @@
       "Description": "The maximum size of the agents Auto Scaling group.",
       "Type": "Number",
       "Default": "2",
-      "MinValue": "1"
+      "MinValue": "0"
     },
     "AgentMinSize": {
       "Description": "The minimum size of the agents Auto Scaling group.",
@@ -159,6 +165,14 @@
         "FileSystemId": {"Ref": "MasterStorage"},
         "SecurityGroups": [{"Ref": "MasterStorageSG"}],
         "SubnetId": {"Ref": "SubnetB"}
+      }
+    },
+    "MasterStorageMountTargetC": {
+      "Type": "AWS::EFS::MountTarget",
+      "Properties": {
+        "FileSystemId": {"Ref": "MasterStorage"},
+        "SecurityGroups": [{"Ref": "MasterStorageSG"}],
+        "SubnetId": {"Ref": "SubnetC"}
       }
     },
     "MasterELBSG": {
@@ -756,7 +770,7 @@
         "DesiredCapacity": "1",
         "HealthCheckGracePeriod": 900,
         "HealthCheckType": "ELB",
-        "VPCZoneIdentifier": [{"Ref": "SubnetA"}, {"Ref": "SubnetB"}],
+        "VPCZoneIdentifier": [{"Ref": "SubnetA"}, {"Ref": "SubnetB"}, {"Ref": "SubnetC"} ],
         "TargetGroupARNs": [{"Ref": "MasterELBTargetGroup"}],
         "Tags": [{
           "PropagateAtLaunch": true,
@@ -789,7 +803,7 @@
       "Properties": {
         "Scheme": "internal",
         "SecurityGroups": [{"Ref": "AgentELBSG"}],
-        "Subnets": [{"Ref": "SubnetA"}, {"Ref": "SubnetB"}],
+        "Subnets": [{"Ref": "SubnetA"}, {"Ref": "SubnetB"}, {"Ref": "SubnetC"} ],
         "Tags": [{
           "Key": "Name",
           "Value": "jenkins-agent"
@@ -1308,7 +1322,7 @@
         "HealthCheckGracePeriod": 600,
         "HealthCheckType": "ELB",
         "TargetGroupARNs": [{"Ref": "AgentELBTargetGroup"}],
-        "VPCZoneIdentifier": [{"Ref": "SubnetA"}, {"Ref": "SubnetB"}],
+        "VPCZoneIdentifier": [{"Ref": "SubnetA"}, {"Ref": "SubnetB"}, {"Ref": "SubnetC"}],
         "Tags": [{
           "PropagateAtLaunch": true,
           "Value": "jenkins-agent",
@@ -1391,7 +1405,7 @@
       "Properties": {
         "EvaluationPeriods": "1",
         "Statistic": "Maximum",
-        "Threshold": "2",
+        "Threshold": "1",
         "AlarmDescription": "Alarm if Build Queue is high.",
         "Period": "60",
         "AlarmActions": [{"Ref": "AgentScalingUpPolicy"}],
