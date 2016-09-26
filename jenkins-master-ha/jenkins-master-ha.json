@@ -78,16 +78,16 @@
       "Description": "The maximum size of the agents Auto Scaling group.",
       "Type": "Number",
       "Default": "2",
-      "MinValue": "0"
+      "MinValue": "1"
     },
     "AgentMinSize": {
       "Description": "The minimum size of the agents Auto Scaling group.",
       "Type": "Number",
-      "Default": "0",
-      "MinValue": "0"
+      "Default": "1",
+      "MinValue": "1"
     },
     "AgentDesiredCapacity": {
-      "Description": "The desired start size of the agents Auto Scaling group. We need one agent during startup for technical reasons.",
+      "Description": "The desired start size of the agents Auto Scaling group. Minimum 1",
       "Type": "Number",
       "Default": "1",
       "MinValue": "1"
@@ -113,7 +113,20 @@
     "HasSSHBastionSecurityGroup": {"Fn::Not": [{"Fn::Equals": ["", {"Ref": "SSHBastionSecurityGroup"}]}]}
   },
   "Mappings": {
-    "RegionMap": {
+    "RegionMapMaster": {
+      "ap-south-1": {"AMI": "ami-ffbdd790"},
+      "eu-west-1": {"AMI": "ami-f9dd458a"},
+      "ap-southeast-1": {"AMI": "ami-a59b49c6"},
+      "ap-southeast-2": {"AMI": "ami-dc361ebf"},
+      "eu-central-1": {"AMI": "ami-ea26ce85"},
+      "ap-northeast-2": {"AMI": "ami-2b408b45"},
+      "ap-northeast-1": {"AMI": "ami-374db956"},
+      "us-east-1": {"AMI": "ami-6869aa05"},
+      "sa-east-1": {"AMI": "ami-6dd04501"},
+      "us-west-1": {"AMI": "ami-31490d51"},
+      "us-west-2": {"AMI": "ami-7172b611"}
+    },
+      "RegionMapMasterSlave": {
       "ap-south-1": {"AMI": "ami-ffbdd790"},
       "eu-west-1": {"AMI": "ami-f9dd458a"},
       "ap-southeast-1": {"AMI": "ami-a59b49c6"},
@@ -748,7 +761,7 @@
         }
       },
       "Properties": {
-        "ImageId": {"Fn::FindInMap": ["RegionMap", {"Ref": "AWS::Region"}, "AMI"]},
+        "ImageId": {"Fn::FindInMap": ["RegionMapMaster", {"Ref": "AWS::Region"}, "AMI"]},
         "IamInstanceProfile": {"Ref": "MasterIP"},
         "InstanceType": {"Ref": "MasterInstanceType"},
         "SecurityGroups": [{"Ref": "MasterSG"}],
@@ -795,7 +808,13 @@
       "Properties": {
         "GroupDescription": "jenkins-elb-agent",
         "VpcId": {"Ref": "VPC"},
-        "SecurityGroupIngress": []
+        "SecurityGroupIngress": [
+        {
+          "FromPort": 8080,
+          "ToPort": 8080,
+          "IpProtocol": "tcp",
+          "CidrIp" : "0.0.0.0/0"
+        }]
       }
     },
     "AgentELB": {
@@ -1292,7 +1311,7 @@
         }
       },
       "Properties": {
-        "ImageId": {"Fn::FindInMap": ["RegionMap", {"Ref": "AWS::Region"}, "AMI"]},
+        "ImageId": {"Fn::FindInMap": ["RegionMapSlave", {"Ref": "AWS::Region"}, "AMI"]},
         "IamInstanceProfile": {"Ref": "AgentIP"},
         "InstanceType": {"Ref": "AgentInstanceType"},
         "SecurityGroups": [{"Ref": "AgentSG"}],
