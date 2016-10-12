@@ -47,7 +47,7 @@
     "MasterInstanceType": {
       "Description": "The instance type of the Jenkins master.",
       "Type": "String",
-      "AllowedValues": [t2.micro, t2.medium, m4.large, m4.xlarge, m3.large, m3.xlarge],
+      "AllowedValues": ["t2.micro", "t2.medium", "m4.large", "m4.xlarge", "m3.large", "m3.xlarge"],
       "Default": "t2.micro"
     },
     "MasterAdminPassword": {
@@ -64,7 +64,7 @@
     "AgentInstanceType": {
       "Description": "The instance type of the Jenkins agents.",
       "Type": "String",
-      "AllowedValues": [t2.micro, t2.medium, m4.large, m4.xlarge, m3.large, m3.xlarge],
+      "AllowedValues": ["t2.micro", "t2.medium", "m4.large", "m4.xlarge", "m3.large", "m3.xlarge"],
       "Default": "t2.medium"
     },
     "AgentVolumeSize": {
@@ -121,12 +121,12 @@
       "eu-central-1": {"AMI": "ami-ea26ce85"},
       "ap-northeast-2": {"AMI": "ami-2b408b45"},
       "ap-northeast-1": {"AMI": "ami-374db956"},
-      "us-east-1": {"AMI": "ami-6869aa05"},
+      "us-east-1": {"AMI": "ami-f35f1de4"},
       "sa-east-1": {"AMI": "ami-6dd04501"},
       "us-west-1": {"AMI": "ami-31490d51"},
       "us-west-2": {"AMI": "ami-7172b611"}
     },
-      "RegionMapMasterSlave": {
+    "RegionMapSlave": {
       "ap-south-1": {"AMI": "ami-ffbdd790"},
       "eu-west-1": {"AMI": "ami-f9dd458a"},
       "ap-southeast-1": {"AMI": "ami-a59b49c6"},
@@ -134,7 +134,7 @@
       "eu-central-1": {"AMI": "ami-ea26ce85"},
       "ap-northeast-2": {"AMI": "ami-2b408b45"},
       "ap-northeast-1": {"AMI": "ami-374db956"},
-      "us-east-1": {"AMI": "ami-6869aa05"},
+      "us-east-1": {"AMI": "ami-f35f1de4"},
       "sa-east-1": {"AMI": "ami-6dd04501"},
       "us-west-1": {"AMI": "ami-31490d51"},
       "us-west-2": {"AMI": "ami-7172b611"}
