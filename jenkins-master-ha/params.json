@@ -1,0 +1,142 @@
+[
+  {
+    "ParameterKey": "AgentDesiredCapacity",
+    "ParameterValue": "3",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "AgentELBSG",
+    "ParameterValue": "sg-6507ba1c",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "AgentInstanceType",
+    "ParameterValue": "t2.medium",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "AgentIAMRole",
+    "ParameterValue": "AgentIAMRole",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "AgentIP",
+    "ParameterValue": "AgentIAMRole",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "AgentLogsRetentionInDays",
+    "ParameterValue": "14",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "AgentMaxBuildWaitTimeInSeconds",
+    "ParameterValue": "1200",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "AgentMaxSize",
+    "ParameterValue": "3",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "AgentMinSize",
+    "ParameterValue": "2",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "AgentTerminatingLifecycleHookIAMRole",
+    "ParameterValue": "arn:aws:iam::571780515387:role/AgentTerminatingLifecycleHookIAMRole",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "AgentSG",
+    "ParameterValue": "sg-ee2e9197",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "AgentVolumeSize",
+    "ParameterValue": "8",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "IAMUserSSHAccess",
+    "ParameterValue": "false",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "KeyName",
+    "ParameterValue": "devops-mauricio",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "MasterAdminPassword",
+    "ParameterValue": "gwReaV28GcV8GhyH",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "MasterELBScheme",
+    "ParameterValue": "internet-facing",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "MasterELBSG",
+    "ParameterValue": "sg-7bbf0202",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "MasterELBSubnets",
+    "ParameterValue": "subnet-7eb3f908,subnet-a084b7c4,subnet-221e907a",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "MasterInstanceType",
+    "ParameterValue": "t2.micro",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "MasterIAMRole",
+    "ParameterValue": "MasterIAMRole",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "MasterIP",
+    "ParameterValue": "MasterIAMRole",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "MasterLogsRetentionInDays",
+    "ParameterValue": "14",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "MasterSG",
+    "ParameterValue": "sg-970bb6ee",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "MasterStorageSG",
+    "ParameterValue": "sg-d26ed3ab",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "SubnetA",
+    "ParameterValue": "subnet-7eb3f908",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "SubnetB",
+    "ParameterValue": "subnet-a084b7c4",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "SubnetC",
+    "ParameterValue": "subnet-221e907a",
+    "UsePreviousValue": true
+  },
+  {
+    "ParameterKey": "VPC",
+    "ParameterValue": "vpc-6afdf50e",
+    "UsePreviousValue": true
+  }
+]
